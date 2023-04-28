@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title>Random Splash Banner</title>
+
+<style>
+body {
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: white;
+  width: 1280px;
+  height: 360px;
+  overflow: hidden;
+}
+
+#splash-text {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+</style>
+
+<script>
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status === 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status, xhr.response);
+      }
+    };
+    xhr.send();
+};
+
+getJSON('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json',
+function(err, data) {
+  if (err !== null) {
+    alert('Something went wrong: ' + err);
+  } else {
+    var keys = Object.keys(data);
+	var info = data[keys[ keys.length * Math.random() << 0]]
+	var path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/' + info.splashPath.substring(info.splashPath.indexOf('v1'))
+	document.getElementById("splash").src = path
+	document.getElementById("splash-text").innerHTML = info.name
+  }
+});
+</script>
+</head>
+
+<body>
+
+<div class="container">
+  <img id='splash'/>
+  <div id='splash-text'></div>
+</div>
+
+</body>
+</html>
