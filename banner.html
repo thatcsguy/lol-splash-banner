@@ -44,8 +44,15 @@ function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-    var keys = Object.keys(data);
-	var info = data[keys[ keys.length * Math.random() << 0]]
+	var keys = Object.keys(data);
+	var info;
+	if (new URLSearchParams(window.location.search).get('daily') == null) {  
+	    info = data[keys[ keys.length * Math.random() << 0]]
+	} else {
+	    var d = new Date(Date.now())
+	    var r = (d.getFullYear()*1000 + d.getDayOfYear())*12347
+	    info = data[ r % keys.length ]
+	}
 	var path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/' + info.splashPath.substring(info.splashPath.indexOf('v1'))
 	document.getElementById("splash").src = path
 	document.getElementById("splash-text").innerHTML = info.name
