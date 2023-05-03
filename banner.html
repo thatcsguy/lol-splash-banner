@@ -51,7 +51,7 @@ function(err, data) {
 	} else {
 	    var d = new Date(Date.now())
 	    var r = (d.getFullYear()*1000 + d.getMonth()*31 + d.getDay())*12347
-	    info = data[ r % keys.length ]
+	    info = data[keys[r % keys.length]]
 	}
 	var path = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/' + info.splashPath.substring(info.splashPath.indexOf('v1'))
 	document.getElementById("splash").src = path
